@@ -1,6 +1,6 @@
 class Marcov
 
-    def initialize(text)
+    def initialize(text="")
         @text = text
         @nm = Natto::MeCab.new
     end

@@ -4,7 +4,7 @@ require 'uri'
 require 'twitter'
 require 'cgi'
 
-@marcov = Marcov.new(text)
+@marcov = Marcov.new
 @client = Twitter::REST::Client.new do |config|
     config.consumer_key        = ENV['TWITTER_CK']
     config.consumer_secret     = ENV['TWITTER_CS']
