@@ -63,5 +63,3 @@ end
 # 10.times do
 #     puts makeText(makeTextArray(tweets))
 # end
-
-upTweet

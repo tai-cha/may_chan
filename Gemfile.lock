@@ -4,6 +4,9 @@ GEM
     addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
     buftok (0.2.0)
+    clockwork (2.0.3)
+      tzinfo
+    concurrent-ruby (1.1.4)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
     equalizer (0.0.11)
@@ -37,6 +40,8 @@ GEM
       multipart-post (~> 2.0)
       naught (~> 1.0)
       simple_oauth (~> 0.3.0)
+    tzinfo (2.0.0)
+      concurrent-ruby (~> 1.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.5)
@@ -45,6 +50,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  clockwork
   natto
   twitter
 
