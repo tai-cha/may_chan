@@ -1,6 +1,9 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    activesupport (3.2.22.5)
+      i18n (~> 0.6, >= 0.6.4)
+      multi_json (~> 1.0)
     addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
     buftok (0.2.0)
@@ -20,8 +23,11 @@ GEM
       domain_name (~> 0.5)
     http-form_data (2.1.1)
     http_parser.rb (0.6.0)
+    i18n (0.9.5)
+      concurrent-ruby (~> 1.0)
     memoizable (0.4.2)
       thread_safe (~> 0.3, >= 0.3.1)
+    multi_json (1.13.1)
     multipart-post (2.0.0)
     natto (1.1.2)
       ffi (>= 1.9.0)
@@ -50,6 +56,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activesupport
   clockwork
   natto
   twitter
