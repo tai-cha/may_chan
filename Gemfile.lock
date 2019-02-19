@@ -16,6 +16,7 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     equalizer (0.0.11)
     ffi (1.10.0)
+    fileutils (1.0.2)
     http (3.3.0)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
@@ -60,6 +61,7 @@ PLATFORMS
 DEPENDENCIES
   activesupport
   clockwork
+  fileutils (= 1.0.2)
   natto
   twitter
 
