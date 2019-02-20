@@ -3,6 +3,7 @@ require_relative './marcov.rb'
 require 'uri'
 require 'twitter'
 require 'cgi'
+require 'dropbox_api'
 
 @marcov = Marcov.new
 @client = Twitter::REST::Client.new do |config|
