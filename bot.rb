@@ -75,9 +75,9 @@ def responseToCalledAndReply
         if tweet.in_reply_to_user_id == MY_ID
             has_my_reply = false
             tweet.user_mentions.each do |mention_tweet|
+                puts mention_tweet.id
                 has_my_reply = true if mention_tweet.id == MY_ID
             end
-            puts tweet.user_mentions
             unless has_my_reply
                 text=''
                 while(text.length <= 4 || text.length >= 130)
