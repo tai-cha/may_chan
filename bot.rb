@@ -59,13 +59,17 @@ def makeTextArray(tweets)
 end
 
 def upTweet
-    tweets = @client.home_timeline(count: 200)
+    tweets = @client.home_timeline(count: 100)
     text=''
     while(text.length <= 5 || text.length >= 140)
         text = makeText(makeTextArray(tweets))
     end
     @client.update(text, options = {})
     puts text
+end
+
+def responseToCalledAndReply
+    tweets = @client.home_timeline(count: 200)
     tweets.each do |tweet|
         @client.favorite(tweet, options={}) if tweet.text.include?("めいちゃん") && !tweet.favorited?
         if tweet.in_reply_to_user_id == MY_ID

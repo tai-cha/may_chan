@@ -7,6 +7,7 @@ include Clockwork
 every(1.minute, 'upTweet.job') do
     if Time.now.min % 5 == 0
         upTweet
+        responseToCalledAndReply
     end
     checkFollowers
 end
