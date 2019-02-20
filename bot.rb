@@ -17,6 +17,11 @@ MY_ID = ENV['MY_ID'].to_i
 
 @dropbox_client = DropboxApi::Client.new(ENV['DROPBOX_ACCESS_TOKEN'])
 
+def reply(tweet,message="")
+    tweet_text = "@#{tweet.user.screen_name} #{message}"
+    @client.update(tweet_text, options = {:in_reply_to_status_id => tweet.id})
+end
+
 def removeURL(text)
     URI.extract(text).uniq.each {|url| text.gsub!(url, '')}
     return text
@@ -61,6 +66,22 @@ def upTweet
     end
     @client.update(text, options = {})
     puts text
+    tweets.each do |tweet|
+        @client.favorite(tweet, options={}) if tweet.text.include?("めいちゃん") && !tweet.favorited?
+        if tweet.in_reply_to_user_id == MY_ID
+            has_my_reply = false
+            tweet.entities.user_mentions.each do |mention_tweet|
+                has_my_reply = true
+            end
+            unless has_my_reply
+                text=''
+                while(text.length <= 4 || text.length >= 130)
+                    text = makeText(makeTextArray(tweets))
+                end
+                reply(tweet, text)
+            end
+        end
+    end
 end
 
 def checkFollowers
