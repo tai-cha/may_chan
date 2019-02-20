@@ -53,7 +53,7 @@ end
 def makeTextArray(tweets)
     texts = []
     tweets.each do |tweet|
-        texts.push CGI.unescapeHTML(removeMention(tweet.text)) unless tweet.user.protected?
+        texts.push CGI.unescapeHTML(removeMention(tweet.text)) unless tweet.user.protected? || tweet.user.id == MY_ID
     end
     return texts
 end
