@@ -89,23 +89,27 @@ def responseToCalledAndReply
 end
 
 def checkFollowers
-    current_followers = @client.follower_ids(MY_ID).take(7500)
-    older_followers = ""
-    last_tweet_id_file = @dropbox_client.download "/may_chan/followers.txt" do |chunk|
-        older_followers << chunk
+    begin
+        current_followers = @client.follower_ids(MY_ID).take(7500)
+        older_followers = ""
+        last_tweet_id_file = @dropbox_client.download "/may_chan/followers.txt" do |chunk|
+            older_followers << chunk
+        end
+        older_followers = older_followers.gsub("[","").gsub("]","").split(", ").map(&:to_i)
+        newFollowers = current_followers - older_followers
+        unFollowed = older_followers - current_followers
+
+        @client.follow(newFollowers)
+        @client.unfollow(unFollowed)
+
+        @dropbox_client.upload(
+            sprintf("%s","/may_chan/followers.txt"),
+            current_followers.to_s,
+            :mode =>:overwrite
+        )
+    rescue Twitter::Error::TooManyRequests => e
+        "フォロワー取得のリミット超えてるっぽい"
     end
-    older_followers = older_followers.gsub("[","").gsub("]","").split(", ").map(&:to_i)
-    newFollowers = current_followers - older_followers
-    unFollowed = older_followers - current_followers
-
-    @client.follow(newFollowers)
-    @client.unfollow(unFollowed)
-
-    @dropbox_client.upload(
-        sprintf("%s","/may_chan/followers.txt"),
-        current_followers.to_s,
-        :mode =>:overwrite
-    )
 end
 
 # For debug
