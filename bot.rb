@@ -13,6 +13,8 @@ require 'dropbox_api'
     config.access_token_secret = ENV['TWITTER_SECRET']
 end
 
+MY_ID = ENV['MY_ID'].to_i
+
 @dropbox_client = DropboxApi::Client.new(ENV['DROPBOX_ACCESS_TOKEN'])
 
 def removeURL(text)
