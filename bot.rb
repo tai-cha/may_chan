@@ -76,7 +76,7 @@ def responceToReply(tweets)
     last_tweet_id = last_tweet_id.to_i
     replies= @client.mentions_timeline(count: 200, since_id: last_tweet_id.to_i)
     replies.reverse.each_with_index do |tweet, index|
-        if index == tl_tweets.size - 1
+        if index == replies.size - 1
             last_tweet_id = tweet.id
         end
         text=''
