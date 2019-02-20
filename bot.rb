@@ -74,7 +74,7 @@ def responseToCalledAndReply
         @client.favorite(tweet, options={}) if tweet.text.include?("めいちゃん") && !tweet.favorited?
         if tweet.in_reply_to_user_id == MY_ID
             has_my_reply = false
-            tweet.entities.user_mentions.each do |mention_tweet|
+            tweet.user_mentions.each do |mention_tweet|
                 has_my_reply = true
             end
             unless has_my_reply
