@@ -75,7 +75,7 @@ def responseToCalledAndReply
         if tweet.in_reply_to_user_id == MY_ID
             has_my_reply = false
             tweet.user_mentions.each do |mention_tweet|
-                has_my_reply = true
+                has_my_reply = true if mention_tweet.id == MY_ID
             end
             unless has_my_reply
                 text=''
