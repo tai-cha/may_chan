@@ -108,7 +108,7 @@ def checkFollowers
             :mode =>:overwrite
         )
     rescue Twitter::Error::TooManyRequests => e
-        "フォロワー取得のリミット超えてるっぽい"
+        puts "フォロワー取得のリミット超えてるっぽい"
     end
 end
 
