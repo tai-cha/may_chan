@@ -68,25 +68,37 @@ def upTweet
     puts text
 end
 
+def responceToReply(tweets)
+    last_tweet_id = "";
+    last_tweet_id_file = @dropbox_client.download "/may_chan/last_tweet_id.txt" do |chunk|
+        last_tweet_id << chunk
+    end
+    last_tweet_id = last_tweet_id.to_i
+    replies= @client.mentions_timeline(count: 200, since_id: last_tweet_id.to_i)
+    replies.reverse.each_with_index do |tweet, index|
+        if index == tl_tweets.size - 1
+            last_tweet_id = tweet.id
+        end
+        text=''
+        while(text.length <= 4 || text.length >= 130)
+            text = makeText(makeTextArray(tweets))
+        end
+        reply(tweet, text)
+    end
+
+    @dropbox_client.upload(
+        sprintf("%s","/may_chan/last_tweet_id.txt"),
+        last_tweet_id.to_s,
+        :mode =>:overwrite
+    )
+end
+
 def responseToCalledAndReply
     tweets = @client.home_timeline(count: 200)
     tweets.each do |tweet|
         @client.favorite(tweet, options={}) if tweet.text.include?("めいちゃん") && !tweet.favorited?
-        if tweet.in_reply_to_user_id == MY_ID
-            has_my_reply = false
-            tweet.user_mentions.each do |mention_tweet|
-                puts mention_tweet.id
-                has_my_reply = true if mention_tweet.id == MY_ID
-            end
-            unless has_my_reply
-                text=''
-                while(text.length <= 4 || text.length >= 130)
-                    text = makeText(makeTextArray(tweets))
-                end
-                reply(tweet, text)
-            end
-        end
     end
+    responceToReply(tweets)
 end
 
 def checkFollowers
