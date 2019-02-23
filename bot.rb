@@ -5,7 +5,7 @@ require 'twitter'
 require 'cgi'
 require 'dropbox_api'
 
-@marcov = Marcov.new(dicdir: "/app/.linuxbrew/lib/mecab/dic/mecab-ipadic-neologd")
+@marcov = Marcov.new(dicdir: "/app/vendor/mecab/dic/mecab-ipadic-neologd")
 @client = Twitter::REST::Client.new do |config|
     config.consumer_key        = ENV['TWITTER_CK']
     config.consumer_secret     = ENV['TWITTER_CS']
