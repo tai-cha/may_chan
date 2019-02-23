@@ -2,7 +2,7 @@ class Marcov
 
     def initialize(text="")
         @text = text
-        @nm = Natto::MeCab.new
+        @nm = Natto::MeCab.new(dicdir: "/app/vendor/mecab/dic/mecab-ipadic-neologd")
     end
 
     def makeWordsArray(text)
