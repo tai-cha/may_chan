@@ -53,7 +53,7 @@ end
 def makeTextArray(tweets)
     texts = []
     tweets.each do |tweet|
-        texts.push CGI.unescapeHTML(removeMention(tweet.text)) unless tweet.user.protected? || tweet.user.id == MY_ID
+        texts.push CGI.unescapeHTML(removeMention(tweet.text)) unless tweet.user.protected? || tweet.user.id == MY_ID || retweeted?(tweet)
     end
     return texts
 end
@@ -123,6 +123,10 @@ def checkFollowers
     rescue Twitter::Error::TooManyRequests => e
         puts "フォロワー取得のリミット超えてるっぽい"
     end
+end
+
+def retweeted?(tweet)
+    tweet.retweeted? || tweet.text.include?("RT @")
 end
 
 # For debug
