@@ -40,14 +40,14 @@ def removeRT(text)
 end
 
 def makeText(texts)
-    threeWordsArray = []
+    fourWordsArray = []
     texts.each do |text|
         text = removeURL(removeHashTags(removeMention(removeRT(text))))
-        @marcov.makeThreeWordsArray(@marcov.makeWordsArray(text)).each do |threeWords|
-            threeWordsArray.push threeWords
+        @marcov.makeFourWordsArray(@marcov.makeWordsArray(text)).each do |fourWords|
+            fourWordsArray.push fourWords
         end
     end
-    return @marcov.makeSentence(threeWordsArray)
+    return @marcov.makeSentence(fourWordsArray)
 end
 
 def makeTextArray(tweets)

@@ -14,38 +14,38 @@ class Marcov
         return words
     end
 
-    def makeThreeWordsArray(words)
-        threeWords = []
+    def makeFourWordsArray(words)
+        fourWords = []
         words.unshift(nil)
         words.push(nil)
-        (0..words.length-3).each do |i|
-            threeWords.push [words[i], words[i+1], words[i+2]]
+        (0..words.length-4).each do |i|
+            fourWords.push [words[i], words[i+1], words[i+2], words[i+3]]
         end
-        return threeWords
+        return fourWords
     end
 
-    def findAndSelectBlock(threeWordsArray, target)
+    def findAndSelectBlock(fourWordsArray, target)
         options = []
         # puts "targetは#{[target].to_s}です"
-        threeWordsArray.each do |threeWords|
-            options.push threeWords if threeWords[0] == target
+        fourWordsArray.each do |fourWords|
+            options.push fourWords if fourWords[0] == target
         end
         random = Random.new()
         # puts options.to_s.gsub("\n","\t")
-        return [nil,nil,nil] if options.length <= 0
+        return [nil,nil,nil,nil] if options.length <= 0
         return options[random.rand(0..(options.length - 1))]
     end
 
-    def makeSentence(threeWords)
+    def makeSentence(fourWords)
         # puts threeWords.to_s
-        threeBlocks = []
+        fourBlocks = []
         result = ""
-        threeBlocks.push findAndSelectBlock(threeWords, nil)
-        while threeBlocks.last.last != nil do
-            threeBlocks.push findAndSelectBlock(threeWords, threeBlocks.last.last)
+        fourBlocks.push findAndSelectBlock(fourWords, nil)
+        while fourBlocks.last.last != nil do
+            fourBlocks.push findAndSelectBlock(fourWords, fourBlocks.last.last)
         end
         # puts threeBlocks.to_s
-        threeBlocks.each do |block|
+        fourBlocks.each do |block|
             for i in (1..2) do
                 result << block[i] unless block[i].nil?
             end
@@ -54,7 +54,7 @@ class Marcov
     end
 
     def result
-        return makeSentence(makeThreeWordsArray(makeWordsArray(@text)))
+        return makeSentence(makeFourWordsArray(makeWordsArray(@text)))
     end
 
 end
