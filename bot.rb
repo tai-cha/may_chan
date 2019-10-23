@@ -4,7 +4,9 @@ require 'uri'
 require 'twitter'
 require 'cgi'
 require 'dropbox_api'
+require 'dotenv'
 
+Dotenv.load
 @marcov = Marcov.new
 @client = Twitter::REST::Client.new do |config|
     config.consumer_key        = ENV['TWITTER_CK']
@@ -47,7 +49,7 @@ def makeText(texts)
             fourWordsArray.push fourWords
         end
     end
-    return @marcov.makeSentence(fourWordsArray)
+    @marcov.makeSentence(fourWordsArray)
 end
 
 def makeTextArray(tweets)

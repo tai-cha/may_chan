@@ -1,8 +1,14 @@
 class Marcov
 
+    DEBUG = ENV['DEBUG'] || false
+
     def initialize(text="")
         @text = text
-        @nm = Natto::MeCab.new(dicdir: "/app/vendor/mecab/dic/mecab-ipadic-neologd")
+        if DEBUG
+            @nm = Natto::MeCab.new
+        else
+            @nm = Natto::MeCab.new(dicdir: "/app/vendor/mecab/dic/mecab-ipadic-neologd")
+        end
     end
 
     def makeWordsArray(text)
@@ -26,35 +32,38 @@ class Marcov
 
     def findAndSelectBlock(fourWordsArray, target)
         options = []
-        # puts "targetは#{[target].to_s}です"
+        puts "targetは#{[target].to_s}です" if DEBUG
         fourWordsArray.each do |fourWords|
             options.push fourWords if fourWords[0] == target
         end
-        random = Random.new()
-        # puts options.to_s.gsub("\n","\t")
+        random = Random.new
+        # puts options.to_s.gsub("\n","\t") if DEBUG
         return [nil,nil,nil,nil] if options.length <= 0
         return options[random.rand(0..(options.length - 1))]
     end
 
     def makeSentence(fourWords)
-        # puts threeWords.to_s
+        puts fourWords.to_s if DEBUG
         fourBlocks = []
         result = ""
         fourBlocks.push findAndSelectBlock(fourWords, nil)
         while fourBlocks.last.last != nil do
             fourBlocks.push findAndSelectBlock(fourWords, fourBlocks.last.last)
         end
-        # puts threeBlocks.to_s
+        puts fourBlocks.to_s if DEBUG
         fourBlocks.each do |block|
-            for i in (1..2) do
+            (1..3).each do |i|
+                if block[i] =~ %r(^[a-zA-Z0-9!-/:-@¥\[-`{-~]*$)
+                    block[i] << " "
+                end
                 result << block[i] unless block[i].nil?
             end
         end
-        return result
+        result
     end
 
     def result
-        return makeSentence(makeFourWordsArray(makeWordsArray(@text)))
+        makeSentence(makeFourWordsArray(makeWordsArray(@text)))
     end
 
 end

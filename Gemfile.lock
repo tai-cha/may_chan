@@ -15,6 +15,7 @@ GEM
     date (1.0.0)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
+    dotenv (2.7.2)
     dropbox_api (0.1.16)
       faraday (>= 0.8, <= 0.15.4)
       oauth2 (~> 1.1)
@@ -78,6 +79,7 @@ DEPENDENCIES
   activesupport
   clockwork
   date (= 1.0.0)
+  dotenv
   dropbox_api
   fileutils (= 1.0.2)
   natto
@@ -87,4 +89,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.4
+   1.17.3
